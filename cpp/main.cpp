@@ -30,15 +30,29 @@
         * 1 <= m, n <= 100
 */
 
+/*!
+    This is the same solution as 'Solution3_DP_BottomUp', except the 
+    iteration is from [1, n] rather than from [n - 2, 0], which may 
+    run faster.
+
+    Time = O((m-1) * (n-1)) => O(m*n)
+
+    Space = O(n)
+    
+    See also: 'solution.py'
+    See also: https://leetcode.com/problems/unique-paths/solutions/4718603/python-brute-force-dp-full-explanation-t-o-m-n-s-o-n/
+*/
 class Solution {
 public:
     int uniquePaths(int m, int n) {
-
-//
-//!\todo TODO: >>> Under Construction <<<
-//
-return -1;
-
+        int cache[n];
+        std::fill_n(cache, n, 1);
+        for (int row = m - 1; row; --row) {
+            for (int col = 1; n > col; ++col) {
+                cache[col] += cache[col - 1];
+            }
+        }
+        return cache[n - 1];
     }
 };
 
